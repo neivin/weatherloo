@@ -1,15 +1,17 @@
 {
-	"manifest version": 1,
+	"manifest_version": 2,
 	
 	"name": "UWeather",
-	"version": "1.0",
+	"version": "0.1",
 
-	"default locale": "en",
 	"description": "Fetches weather from UW weather station.",
-	//"icons": {},
+	"icons": {"16": "img/icon16.png",
+			  "48": "img/icon48.png",
+			  "128": "img/icon128.png"},
 
-	"browser action": {
-		"default_icon": "weather_icon.png"
+	"browser_action": {
+		"default_icon": "img/icon16.png",
+		"default_popup": "popup.html"
 		},
 	"author": "Neivin Mathew"
 }
