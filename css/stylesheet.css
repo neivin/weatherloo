@@ -1,0 +1,21 @@
+#wrapper {
+	width: 275px;
+	height: 400px;
+	background-color: #E6E6E6;
+	font-family: Arial, sans-serif;
+}
+
+#logo {
+	width: 250px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	content: url(../img/uwlogo.png);
+}
+
+#dat {
+	margin-top: 10px;
+	font-size: 12px;
+	padding: 0 10px 0 10px;
+
+}
