@@ -1,3 +1,3 @@
 $(document).ready(function(){
-	$("#logo").fadeout('slow');
+	$("#logo").fadeIn('slow');
 });
