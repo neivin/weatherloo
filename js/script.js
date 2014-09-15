@@ -39,12 +39,12 @@ $(document).ready(function(){
 
 		weatherHTML += '<div>High/Low (24 hrs): ' + tempMax + ' \xB0C / ' + tempMin + ' \xB0C</div>';
 
-		if (humidex === 'N_A')
-			console.log("no humidex");
-		else 
+		console.log(windchill);
+
+		if (humidex != "N_A ")
 			weatherHTML += '<div>Humidex (feels like): ' + humidex + ' \xB0C</div>';
 
-		if (windchill != 'N_A')
+		if (windchill != "N_A  ")
 			weatherHTML += '<div>Windchill (feels like): ' + windchill + ' \xB0C</div>';
 
 		weatherHTML += '<div>Wind: ' + windSpeed + ' km/h, ' + windDirection + '</div>';
