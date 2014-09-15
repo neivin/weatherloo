@@ -1,13 +1,17 @@
+body {
+	margin: 0px;
+}
+
 #wrapper {
 	width: 275px;
-	height: 400px;
 	background-color: #E6E6E6;
 	font-family: Arial, sans-serif;
 }
 
 #logo {
-	width: 250px;
+	width: 200px;
 	display: block;
+	padding-top: 5px;
 	margin-right: auto;
 	margin-left: auto;
 	content: url(../img/uwlogo.png);
@@ -18,4 +22,14 @@
 	font-size: 12px;
 	padding: 0 10px 0 10px;
 
+}
+
+#info {
+	display: block;
+	margin-top: 10px;
+	font-size: 13px;
+}
+
+#info>div {
+	padding: 5px 10px 5px 10px;
 }
