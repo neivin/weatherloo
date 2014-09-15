@@ -4,7 +4,7 @@ body {
 
 #wrapper {
 	width: 275px;
-	background-color: #E6E6E6;
+	background-color: #f8f8f8;
 	font-family: Arial, sans-serif;
 }
 
@@ -18,10 +18,11 @@ body {
 }
 
 #dat {
+	text-align: center;
 	margin-top: 10px;
 	font-size: 12px;
 	padding: 0 10px 0 10px;
-
+	color: #6e6e6e;
 }
 
 #info {
@@ -31,5 +32,5 @@ body {
 }
 
 #info>div {
-	padding: 5px 10px 5px 10px;
+	padding: 7px 0px 7px 15px;
 }

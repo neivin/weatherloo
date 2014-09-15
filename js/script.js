@@ -17,7 +17,7 @@ $(document).ready(function(){
 		day = $data.find('observation_day').text();
 		
 		// This time is wrong from the XML data (always 45 mins into the hour)	
-		time = $data.find('observation_time').text();
+		// time = $data.find('observation_time').text();
 
 		// Fixing observation time based on current time and the knowledge that
 		// the weather station records data every 15 mins.
@@ -35,13 +35,13 @@ $(document).ready(function(){
 			hrs = "12";
 
 		// Getting the correct minutes value
-		if (parseInt(mins) >= 5 && parseInt(mins) < 20)
+		if (parseInt(mins) >= 5 && parseInt(mins) < 16)
 			mins = ":00";
-		if (parseInt(mins) >= 20 && parseInt(mins) < 35)
+		if (parseInt(mins) >= 16 && parseInt(mins) < 31)
 			mins = ":15";
-		if (parseInt(mins) >= 35 && parseInt(mins) < 50)
+		if (parseInt(mins) >= 31 && parseInt(mins) < 46)
 			mins = ":30";
-		if (parseInt(mins) >= 50 || parseInt(mins) < 5)
+		if (parseInt(mins) >= 46 || parseInt(mins) < 5)
 			mins = ":45";
 
 		time = hrs + mins + ampm;
