@@ -15,8 +15,36 @@ $(document).ready(function(){
 		year = $data.find('observation_year').text();
 		month = $data.find('observation_month_text').text();
 		day = $data.find('observation_day').text();
-			
+		
+		// This time is wrong from the XML data (always 45 mins into the hour)	
 		time = $data.find('observation_time').text();
+
+		// Fixing observation time based on current time and the knowledge that
+		// the weather station records data every 15 mins.
+		var curTime = new Date();
+		var hrs = curTime.getHours();
+		var mins = curTime.getMinutes();
+		var ampm = " AM";
+
+		// Getting the correct hours value
+		if (parseInt(hrs) > 12) {
+			hrs = String(parseInt(hrs) - 12);
+			ampm = " PM"
+		}
+		else if (parseInt(hrs) == 0)
+			hrs = "12";
+
+		// Getting the correct minutes value
+		if (parseInt(mins) >= 5 && parseInt(mins) < 20)
+			mins = ":00";
+		if (parseInt(mins) >= 20 && parseInt(mins) < 35)
+			mins = ":15";
+		if (parseInt(mins) >= 35 && parseInt(mins) < 50)
+			mins = ":30";
+		if (parseInt(mins) >= 50 || parseInt(mins) < 5)
+			mins = ":45";
+
+		time = hrs + mins + ampm;
 
 		dateAndTimeHTML += '<span>Updated on '+ month + ' ' + day +', '+ year + ' ';
 		dateAndTimeHTML += time +'</span>';
@@ -38,8 +66,6 @@ $(document).ready(function(){
 		weatherHTML += '<div>Temperature: ' + temp + ' \xB0C</div>';
 
 		weatherHTML += '<div>High/Low (24 hrs): ' + tempMax + ' \xB0C / ' + tempMin + ' \xB0C</div>';
-
-		console.log(windchill);
 
 		if (humidex != "N_A ")
 			weatherHTML += '<div>Humidex (feels like): ' + humidex + ' \xB0C</div>';
