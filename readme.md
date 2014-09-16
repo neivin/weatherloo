@@ -3,7 +3,7 @@ Weatherloo is a simple Chrome extension that displays weather information for Wa
 
 The weather information is obtained from the [weather station](http://weather.uwaterloo.ca) at the University of Waterloo.
 
-![Screenshot](img/screenshot.png)
+![Screenshot](/img/screenshot.PNG)
 
 Future changes:
 - Fetch weather information from an alternative open source API
