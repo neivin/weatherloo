@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"author": "Neivin Mathew",
 
-	"name": "UWeather",
+	"name": "Weatherloo",
 	"version": "0.1",
 
 	"permissions": ["http://weather.uwaterloo.ca/"],
