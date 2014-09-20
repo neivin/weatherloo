@@ -89,4 +89,17 @@ $(document).ready(function(){
 		$('#info').append(weatherHTML);
 
 	});
+
+	$(function(){
+		$("#credit").click(function(){
+			var creditURL = "http://weather.uwaterloo.ca"
+			chrome.tabs.create({url: creditURL});
+		});
+	});
+
+	$(function(){
+		$("#logo").click(function(){
+			chrome.tabs.create({url: "https://github.com/neivin/Weatherloo"});
+		});
+	});
 });

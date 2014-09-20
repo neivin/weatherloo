@@ -5,7 +5,7 @@ body {
 #wrapper {
 	width: 275px;
 	background-color: #f8f8f8;
-	font-family: Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 #logo {
@@ -15,6 +15,7 @@ body {
 	margin-right: auto;
 	margin-left: auto;
 	content: url(../img/uwlogo.png);
+	cursor: pointer;
 }
 
 #dat {
@@ -27,10 +28,21 @@ body {
 
 #info {
 	display: block;
-	margin-top: 10px;
+	margin-top: 7px;
 	font-size: 13px;
 }
 
 #info>div {
 	padding: 7px 0px 7px 15px;
+}
+
+#credit {
+	text-align: center;
+	margin-top: 5px;
+	font-size: 10px;
+	padding: 0 10px 0 10px;
+	color: #6e6e6e;
+	margin-bottom: 10px;
+	cursor: pointer;
+	text-decoration: underline;
 }

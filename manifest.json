@@ -5,7 +5,8 @@
 	"name": "Weatherloo",
 	"version": "0.1",
 
-	"permissions": ["http://weather.uwaterloo.ca/"],
+	"permissions": ["http://weather.uwaterloo.ca/",
+					"tabs"],
 
 	"description": "Fetches weather from UW weather station.",
 	"icons": {"16": "img/icon16.png",
