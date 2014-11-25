@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8"/>
 		<title>UWeather - Weather information for UW</title>
 		<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript" src="js/script.js"></script>
@@ -9,6 +10,21 @@
 	<body>
 		<div id="wrapper">
 			<div id="logo"></div>
+			<div class="row">
+				<div id="weather_icon" class="col third">
+					<img src="img/icon48.png">
+					<div>Light Snow</div>
+				</div>
+				<div id="temp_info" class="col third">
+					<div id="temperature">2 &deg;C</div>
+					<div id="feelslike">Feels like -6 &deg;C</div>
+				</div>
+				<div id="hi_lo" class="col third">
+					<div>Hi: 3 &deg;C</div>
+					<div>Lo: 3 &deg;C</div>
+				</div>
+			</div>
+
 			<div id="dat">
 				<!-- Date and time injected here -->
 			</div>
@@ -18,7 +34,6 @@
 			<div id="credit">
 				Courtesy of<br>University of Waterloo Weather Station
 			</div>
-			
 		</div>
 	</body>
 </html>

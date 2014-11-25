@@ -1,4 +1,26 @@
+// Global variables for weather data
+var CITY = "Waterloo";
+var MODE = "xml";
+var UNITS = "metric";
+var DAY_COUNT = "7"
+
+// Building URL for current weather data (Open Weather Map)
+var currentURL = "http://api.openweathermap.org/data/2.5/weather"+
+					"?q=" + CITY +
+					"&mode="+ MODE +
+					"&units=" + UNITS;
+
+
+// Building URL for forecast data (Open Weather Map)
+var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily"+
+					"?q=" + CITY + 
+					"&mode=" + MODE +
+					"&units=" + UNITS +
+					"&cnt=" + DAY_COUNT;
+
+// XML feed of The University of Waterloo Weather Station
 var weatherDataURL = "http://weather.uwaterloo.ca/waterloo_weather_station_data.xml";
+
 
 $(document).ready(function(){
 
@@ -89,17 +111,20 @@ $(document).ready(function(){
 		$('#info').append(weatherHTML);
 
 	});
+	
+	$.get(currentURL, {}, function(xml) {});
+	
+});
 
-	$(function(){
-		$("#credit").click(function(){
-			var creditURL = "http://weather.uwaterloo.ca"
-			chrome.tabs.create({url: creditURL});
-		});
+$(function(){
+	$("#credit").click(function(){
+		var creditURL = "http://weather.uwaterloo.ca"
+		chrome.tabs.create({url: creditURL});
 	});
+});
 
-	$(function(){
-		$("#logo").click(function(){
-			chrome.tabs.create({url: "https://github.com/neivin/Weatherloo"});
-		});
+$(function(){
+	$("#logo").click(function(){
+		chrome.tabs.create({url: "https://github.com/neivin/Weatherloo"});
 	});
 });

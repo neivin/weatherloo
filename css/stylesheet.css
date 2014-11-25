@@ -46,3 +46,28 @@ body {
 	cursor: pointer;
 	text-decoration: underline;
 }
+
+.col {
+	float: left;
+}
+
+.third {
+	height: 60px;
+	width: 33.33333333%;
+}
+
+.sixth {
+	width: 16.66666667%;
+}
+
+.row {
+	display: block;
+}
+
+#temperature {
+	font-size: 30px;
+}
+
+#feelslike {
+	font-size: 8px;
+}
