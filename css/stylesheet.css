@@ -75,25 +75,22 @@ body {
 }
 
 #cond_date{
-	position: relative;
-	top: 8px;
 	font-size: 16px;
 	text-align: center;
-	padding-bottom: 12px;
-	/*width: 33.33333333%;*/
+	overflow: auto;
 }
 
 #cond{
 	text-align: left;
 	float: left;
-	padding-left: 20px;
 }
 
 #date{
 	font-size: 14px;
 	font-weight: 300;
 	text-align: right;
-	padding-left: 140px;
+	padding-right: 10px;
+	float: right;
 }
 
 #weather_icon{
@@ -135,6 +132,11 @@ body {
 
 #lo{
 	color: #9DDFEC;
+}
+
+#maininfo{
+	clear: both;	
+	overflow: auto;
 }
 
 #sec {
