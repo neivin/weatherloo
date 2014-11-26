@@ -140,11 +140,11 @@ body {
 }
 
 #hi, .fchi {
-	color: #FFA25F;
+	color: #D75A00;
 }
 
 #lo, .fclo {
-	color: #C2F5FF;
+	color: #2AA8B8;
 }
 
 #maininfo{
@@ -158,7 +158,7 @@ body {
 
 .botmatter{
 	padding: 15px 0px;
-	background-color: #999;
+	background-color: #bababa;
 	overflow: auto;
 }
 
