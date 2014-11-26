@@ -113,7 +113,13 @@ $(document).ready(function(){
 	});
 	
 	$.getJSON(currentURL, function(json) {
-		console.log(json.cod);
+		var sunrise = timeConverter(json.sys.sunrise);
+		var sunset = timeConverter(json.sys.sunset)
+
+		$('#rise').html(sunrise);
+		$('#set').html(sunset);
+		console.log(sunrise);
+		console.log(sunset);
 	});
 	
 });
@@ -130,3 +136,11 @@ $(function(){
 		chrome.tabs.create({url: "https://github.com/neivin/Weatherloo"});
 	});
 });
+
+function timeConverter(UNIX_timestamp){
+  var d = new Date(UNIX_timestamp*1000);
+  var hour = d.getHours();
+  var min = d.getMinutes();
+  var time = hour + ':' + min;
+  return time;
+}
