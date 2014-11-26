@@ -71,20 +71,19 @@ $(document).ready(function(){
 		dateAndTimeHTML += '<span>Updated on '+ month + ' ' + day +', '+ year + ' ';
 		dateAndTimeHTML += time +'</span>';
 		
-		temp = $data.find('temperature_current_C').text();
-		humidex = $data.find('humidex_C').text();
-		windchill = $data.find('windchill_C').text();
-		tempMax = $data.find('temperature_24hrmax_C').text();
-		tempMin = $data.find('temperature_24hrmin_C').text();
-		humidity = $data.find('relative_humidity_percent').text();
-		dewPoint = $data.find('dew_point_C').text();
-		windSpeed = $data.find('wind_speed_kph').text();
-		windDirection = $data.find('wind_direction').text();
-		windDirectionDegrees = $data.find('wind_direction_degrees').text();
-		pressure = $data.find('pressure_kpa').text();
-		pressureTrend = $data.find('pressure_trend').text();
-		radiation = $data.find('incoming_shortwave_radiation_WM2').text();
 
+		
+		
+		
+		var humidity = $data.find('relative_humidity_percent').text();
+		var dewPoint = $data.find('dew_point_C').text();
+		var windSpeed = $data.find('wind_speed_kph').text();
+		var windDirection = $data.find('wind_direction').text();
+		var pressure = $data.find('pressure_kpa').text();
+		var pressureTrend = $data.find('pressure_trend').text();
+		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
+
+		/*
 		weatherHTML += '<div>Temperature: ' + temp + ' \xB0C</div>';
 
 		weatherHTML += '<div>High/Low (24 hrs): ' + tempMax + ' \xB0C / ' + tempMin + ' \xB0C</div>';
@@ -103,23 +102,67 @@ $(document).ready(function(){
 		weatherHTML += '<div>Pressure: ' + pressure + ' kPa, ' + pressureTrend + '</div>';
 
 		weatherHTML += '<div>Radiation: ' + radiation + ' W/m' + '2'.sup() + '</div>';
+		*/
+
+		var temp = $data.find('temperature_current_C').text();
+		$('#temperature').html(Math.round(temp)+"<span>&deg;C</span>");
+
+		var humidex = $data.find('humidex_C').text();
+		var windchill = $data.find('windchill_C').text();
+		console.log(humidex);
+		console.log(windchill);
+		var feelsLike = temp;
+
+		if (humidex != "N_A ")
+			feelsLike = humidex;
+		
+		if (windchill != "N_A  ")
+			feelsLike = windchill;
+		
+		$('#feelslike').html("Feels like " + "<strong>" + Math.round(feelsLike) + "</strong>");
+
+		var tempMax = $data.find('temperature_24hrmax_C').text();
+		var tempMin = $data.find('temperature_24hrmin_C').text();
+
+		$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
+		$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
 
 
-
-
-		$('#dat').append(dateAndTimeHTML);
-		$('#info').append(weatherHTML);
 
 	});
 	
 	$.getJSON(currentURL, function(json) {
+		// get sunrise and sunset and convert unix epoch into string
 		var sunrise = timeConverter(json.sys.sunrise);
 		var sunset = timeConverter(json.sys.sunset)
 
+		// current weather description
+		var weatherDesc = json.weather[0].description;
+
+		// current weather icon path
+		var weatherIcon = "img/weather_icons/" + json.weather[0].icon + ".png";
+
+		// current date string builder
+		var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", 
+						"July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+		var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		var curDate = new Date();
+		var da = dayArr[curDate.getDay()];
+		var mo = monthArr[curDate.getMonth()];
+		var dt = curDate.getDate();
+		
+		var dtString = da + ", " + mo + " " + dt;
+
+
+
 		$('#rise').html(sunrise);
 		$('#set').html(sunset);
-		console.log(sunrise);
-		console.log(sunset);
+
+		$('#cond').html(weatherDesc);
+
+		$('#weather_icon').attr('src',weatherIcon);
+
+		$('#date').html(dtString);
 	});
 	
 });

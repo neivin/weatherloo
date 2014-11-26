@@ -80,9 +80,13 @@ body {
 	overflow: auto;
 }
 
+#pri {
+	padding-top: 15px;
+}
 #cond{
 	text-align: left;
 	float: left;
+	text-transform: capitalize;
 }
 
 #date{
@@ -121,7 +125,9 @@ body {
 }
 
 #hi_lo > div {
+	text-align: left;
 	padding-top: 4px;
+	padding-left: 35px;
 	font-size: 16px;
 	font-weight: 700;
 }
