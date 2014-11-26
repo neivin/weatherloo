@@ -114,7 +114,7 @@ $(document).ready(function(){
 		$('#pres').html(presArr + Math.round(pressure) +" kPa");
 
 		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
-		$('#rad').html(radiation + " W/m<span>2</span>");
+		$('#rad').html(Math.round(radiation) + " W/m<span>2</span>");
 
 	});
 	
