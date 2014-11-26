@@ -4,7 +4,7 @@ body {
 }
 
 #wrapper {
-	width:366px;
+	width:381px;
 	background-color: #f5f5f5;
 }
 
@@ -57,11 +57,21 @@ body {
 	background-color: #444;
 	overflow: auto;
 	clear: both;
-	padding: 10px 0;
+	padding: 5px 10px;
 }
 
 .topmatter > div{
 	color: #f5f5f5;
+}
+
+.curinfo{
+	font-weight: 900;
+	font-size: 12px;
+}
+
+.desc {
+	font-size: 10px;
+	font-weight: 100;
 }
 
 #cond_date{
@@ -120,9 +130,10 @@ body {
 }
 
 #hi {
-	color: #FA6900;
+	color: #D39C73;
 }
 
 #lo{
-	color: #69D2E7;
+	color: #9DDFEC;
 }
+
