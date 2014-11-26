@@ -6,5 +6,6 @@ The weather information is obtained from the [weather station](http://weather.uw
 ![Screenshot](/img/screenshot.PNG)
 
 Future changes:
-- Fetch weather information from an alternative open source API
-- Desktop notifications in times of inclement weather
+- Add forecast functionality.
+- Fetch weather information from an alternative open source API.
+- Desktop notifications in times of inclement weather.
