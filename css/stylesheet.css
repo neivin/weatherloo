@@ -120,12 +120,13 @@ body {
 }
 
 #hi_lo {
-	padding-top: 8px;
+	padding-top: 15px;
 }
 
 #hi_lo > div {
 	padding-top: 4px;
 	font-size: 16px;
+	font-weight: 700;
 }
 
 #hi {
@@ -136,3 +137,6 @@ body {
 	color: #9DDFEC;
 }
 
+#sec {
+	padding-bottom: 15px;
+}
