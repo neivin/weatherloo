@@ -70,7 +70,7 @@ body {
 }
 
 .desc {
-	font-size: 10px;
+	font-size: 12px;
 	font-weight: 100;
 }
 
@@ -91,8 +91,7 @@ body {
 
 #date{
 	font-size: 14px;
-	font-weight: 100;
-	font-style: italic;
+	font-weight: 300;
 	text-align: right;
 	padding-left: 140px;
 }
