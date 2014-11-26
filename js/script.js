@@ -1,6 +1,6 @@
 // Global variables for weather data
 var CITY = "Waterloo";
-var MODE = "xml";
+var MODE = "json";
 var UNITS = "metric";
 var DAY_COUNT = "7"
 
@@ -112,7 +112,9 @@ $(document).ready(function(){
 
 	});
 	
-	$.get(currentURL, {}, function(xml) {});
+	$.getJSON(currentURL, function(json) {
+		console.log(json.cod);
+	});
 	
 });
 
