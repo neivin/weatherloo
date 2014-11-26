@@ -160,11 +160,6 @@ $.getJSON(forecastURL, function(json){
 			var hi = Math.round(forecastArr[i].temp.max);
 			var lo = Math.round(forecastArr[i].temp.min);
 
-			console.log(day);
-			console.log(dt);
-			console.log(iconPath);
-			console.log(hi);
-			console.log(lo);
 
 
 			$('#day'+ i).html(day);
