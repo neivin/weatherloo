@@ -6,17 +6,17 @@ var DAY_COUNT = "7"
 
 // Building URL for current weather data (Open Weather Map)
 var currentURL = "http://api.openweathermap.org/data/2.5/weather"+
-					"?q=" + CITY +
-					"&mode="+ MODE +
-					"&units=" + UNITS;
+"?q=" + CITY +
+"&mode="+ MODE +
+"&units=" + UNITS;
 
 
 // Building URL for forecast data (Open Weather Map)
 var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily"+
-					"?q=" + CITY + 
-					"&mode=" + MODE +
-					"&units=" + UNITS +
-					"&cnt=" + DAY_COUNT;
+"?q=" + CITY + 
+"&mode=" + MODE +
+"&units=" + UNITS +
+"&cnt=" + DAY_COUNT;
 
 // XML feed of The University of Waterloo Weather Station
 var weatherDataURL = "http://weather.uwaterloo.ca/waterloo_weather_station_data.xml";
@@ -110,14 +110,14 @@ $(document).ready(function(){
 		$('#pres').html(presArr + Math.round(pressure) +" kPa");
 
 		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
-		$('#rad').html(Math.round(radiation) + " W/m<span>2</span>");
+		$('#rad').html(Math.round(radiation) + " W/m<span id=\"radunit\">2</span>");
 
 	});
-	
-	$.getJSON(currentURL, function(json) {
+
+$.getJSON(currentURL, function(json) {
 		// get sunrise and sunset and convert unix epoch into string
-		var sunrise = timeConverter(json.sys.sunrise);
-		var sunset = timeConverter(json.sys.sunset)
+		var sunrise = timeConverter(json.sys.sunrise, "hrmin");
+		var sunset = timeConverter(json.sys.sunset, "hrmin");
 
 		// current weather description
 		var weatherDesc = json.weather[0].description;
@@ -127,7 +127,7 @@ $(document).ready(function(){
 
 		// current date string builder
 		var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", 
-						"July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+		"July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 		var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 		var curDate = new Date();
 		var da = dayArr[curDate.getDay()];
@@ -146,18 +146,61 @@ $(document).ready(function(){
 		$('#date').html(dtString);
 	});
 
-	$.getJSON(forecastURL, function(json){
+$.getJSON(forecastURL, function(json){
 		// Get forecast information here
+		var forecastArr = json.list;
+		
+		for(var i=1; i<=6;i++){
+			var unixDate = forecastArr[i].dt;
+			var day = timeConverter(unixDate, "day");
+			if (day == "SUN")
+				day = "<span id=\"sunday\">" + day + "</span>";
+
+			var dt = timeConverter(unixDate, "md");
+
+			var iconPath = "img/weather_icons/" + forecastArr[i].weather[0].icon + ".png";
+
+			var hi = Math.round(forecastArr[i].temp.max);
+			var lo = Math.round(forecastArr[i].temp.min);
+
+			console.log(day);
+			console.log(dt);
+			console.log(iconPath);
+			console.log(hi);
+			console.log(lo);
+
+
+			$('#day'+ i).html(day);
+			$('#dt'+ i).html(dt);
+			$('#ico'+ i).attr('src', iconPath);
+			$('#hi'+ i).html(hi);
+			$('#lo'+ i).html(lo);
+		}
+
 	});
-	
+
 });
 
-function timeConverter(UNIX_timestamp){
-  var d = new Date(UNIX_timestamp*1000);
-  var hour = d.getHours();
-  var min = d.getMinutes();
-  var time = hour + ':' + min;
-  return time;
+function timeConverter(UNIX_timestamp, type){
+	var result;
+	var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];  
+	
+	var d = new Date(UNIX_timestamp*1000);
+	
+	var hour = d.getHours();
+	var min = d.getMinutes();
+	var day = dayArr[d.getDay()].toUpperCase();
+	var date = d.getDate();
+	var month = d.getMonth() + 1;
+	
+	if (type == "hrmin")
+		result = hour + ':' + min;
+	else if (type == "day")
+		result = day;
+	else if (type == "md")
+		result = month + "/" + date;
+
+	return result;
 }
 
 /*
