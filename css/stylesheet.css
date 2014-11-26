@@ -8,16 +8,6 @@ body {
 	background-color: #f5f5f5;
 }
 
-#logo {
-	width: 200px;
-	display: block;
-	padding-top: 5px;
-	margin-right: auto;
-	margin-left: auto;
-	content: url(../img/uwlogo.png);
-	cursor: pointer;
-}
-
 #dat {
 	text-align: center;
 	margin-top: 10px;
@@ -50,6 +40,9 @@ body {
 	width: 16.66666667%;
 }
 
+.half{
+	width: 50%;
+}
 .row {
 	display: block;
 }
@@ -143,8 +136,19 @@ body {
 	color: #D75A00;
 }
 
+.fchi{
+	border-bottom: 1px solid #a5a5a5;
+	width: 35%;
+	margin: auto;
+	padding-bottom: 5px;
+}
+
 #lo, .fclo {
 	color: #2AA8B8;
+}
+
+.fclo {
+	padding-top: 5px;
 }
 
 #maininfo{
@@ -166,18 +170,41 @@ body {
 	color: #444;
 }
 
-.botmatter > .md {
-	border-left: 1px solid	#8e8e8e;
-}
 .fc_ico {
 	padding: 10px 0px;
 	height: 40px;
 }
 
 .fc_hilo {
+	font-size: 15px;
 	font-weight: 700;
 }
 
 #sunday {
 	color: #8E3600;
+}
+
+
+footer{
+	overflow: auto;
+	background-color: #444;
+	padding: 8px;
+	color: #a5a5a5;
+}
+
+#logo{
+	font-family: 'Arvo','Courier', serif;
+	font-weight: 500;
+	padding-left: 5px;
+	text-align: left;
+	font-size: 16px;
+	cursor: pointer;
+	
+}
+
+#update{
+	padding-right: 6px;
+	text-align: right;
+	font-size: 12px;
+	font-weight: 100;
 }

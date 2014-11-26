@@ -27,15 +27,11 @@ $(document).ready(function(){
 	// Open XML file
 	$.get(weatherDataURL,{}, function(xml){
 
-		// Build HTML output
-		weatherHTML = "";
-		dateAndTimeHTML = "";
-
 		$data = $('current_observation', xml);
 
 		// Collect date and time of observation
 		year = $data.find('observation_year').text();
-		month = $data.find('observation_month_text').text();
+		month = $data.find('observation_month_number').text();
 		day = $data.find('observation_day').text();
 		
 		// This time is wrong from the XML data (always 45 mins into the hour)	
@@ -68,8 +64,9 @@ $(document).ready(function(){
 
 		time = hrs + mins + ampm;
 
-		dateAndTimeHTML += '<span>Updated on '+ month + ' ' + day + ' ';
-		dateAndTimeHTML += time +'</span>';
+		var dateAndTime;
+		dateAndTime = 'Updated '+ month.trim() + '/' + day.trim() + '/'+ year.trim() +', ' + time;
+		$('#update').html(dateAndTime);
 		
 
 		var temp = $data.find('temperature_current_C').text();
@@ -203,11 +200,10 @@ function timeConverter(UNIX_timestamp, type){
 	return result;
 }
 
-/*
+
 $(function(){
-	$("#credit").click(function(){
-		var creditURL = "http://weather.uwaterloo.ca"
+	$("#logo").click(function(){
+		var creditURL = "https://github.com/neivin/weatherloo"
 		chrome.tabs.create({url: creditURL});
 	});
 });
-*/
