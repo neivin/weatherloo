@@ -72,15 +72,11 @@ $(document).ready(function(){
 		dateAndTimeHTML += time +'</span>';
 		
 
-
-
 		var temp = $data.find('temperature_current_C').text();
 		$('#temperature').html(Math.round(temp)+"<span>&deg;C</span>");
 
 		var humidex = $data.find('humidex_C').text();
 		var windchill = $data.find('windchill_C').text();
-		console.log(humidex);
-		console.log(windchill);
 		var feelsLike = temp;
 
 		if (humidex != "N_A ")
