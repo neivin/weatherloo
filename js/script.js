@@ -68,41 +68,11 @@ $(document).ready(function(){
 
 		time = hrs + mins + ampm;
 
-		dateAndTimeHTML += '<span>Updated on '+ month + ' ' + day +', '+ year + ' ';
+		dateAndTimeHTML += '<span>Updated on '+ month + ' ' + day + ' ';
 		dateAndTimeHTML += time +'</span>';
 		
 
-		
-		
-		
-		var humidity = $data.find('relative_humidity_percent').text();
-		var dewPoint = $data.find('dew_point_C').text();
-		var windSpeed = $data.find('wind_speed_kph').text();
-		var windDirection = $data.find('wind_direction').text();
-		var pressure = $data.find('pressure_kpa').text();
-		var pressureTrend = $data.find('pressure_trend').text();
-		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
 
-		/*
-		weatherHTML += '<div>Temperature: ' + temp + ' \xB0C</div>';
-
-		weatherHTML += '<div>High/Low (24 hrs): ' + tempMax + ' \xB0C / ' + tempMin + ' \xB0C</div>';
-
-		if (humidex != "N_A ")
-			weatherHTML += '<div>Humidex (feels like): ' + humidex + ' \xB0C</div>';
-
-		if (windchill != "N_A  ")
-			weatherHTML += '<div>Windchill (feels like): ' + windchill + ' \xB0C</div>';
-
-		weatherHTML += '<div>Wind: ' + windSpeed + ' km/h, ' + windDirection + '</div>';
-
-		weatherHTML += '<div>Humidity: ' + humidity + '%</div>';
-		weatherHTML += '<div>Dew point: ' + dewPoint + ' \xB0C</div>';
-
-		weatherHTML += '<div>Pressure: ' + pressure + ' kPa, ' + pressureTrend + '</div>';
-
-		weatherHTML += '<div>Radiation: ' + radiation + ' W/m' + '2'.sup() + '</div>';
-		*/
 
 		var temp = $data.find('temperature_current_C').text();
 		$('#temperature').html(Math.round(temp)+"<span>&deg;C</span>");
@@ -127,7 +97,24 @@ $(document).ready(function(){
 		$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
 		$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
 
+		var windSpeed = $data.find('wind_speed_kph').text();
+		var windDirection = $data.find('wind_direction').text();
 
+		var wind = Math.round(windSpeed) + " kph " + windDirection;
+		$('#wind').html(wind);
+
+		var humidity = $data.find('relative_humidity_percent').text();
+		$('#hum').html(Math.round(humidity)+" %")
+
+		var pressure = $data.find('pressure_kpa').text();
+		var pressureTrend = $data.find('pressure_trend').text();
+		var presArr = "&uarr;"
+		if (pressureTrend == "   Falling")
+			presArr = "&darr;"
+		$('#pres').html(presArr + Math.round(pressure) +" kPa");
+
+		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
+		$('#rad').html(radiation + " W/m<span>2</span>");
 
 	});
 	
