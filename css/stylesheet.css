@@ -137,7 +137,7 @@ body {
 }
 
 .fchi{
-	border-bottom: 1px solid #a5a5a5;
+	border-bottom: 1px solid #c5c5c5;
 	width: 35%;
 	margin: auto;
 	padding-bottom: 5px;
@@ -162,7 +162,7 @@ body {
 
 .botmatter{
 	padding: 15px 0px;
-	background-color: #bababa;
+	background-color: #f5f5f5;
 	overflow: auto;
 }
 
@@ -171,8 +171,8 @@ body {
 }
 
 .fc_ico {
-	padding: 10px 0px;
-	height: 40px;
+	padding-top: 10px;
+	height: 50px;
 }
 
 .fc_hilo {
@@ -194,12 +194,11 @@ footer{
 
 #logo{
 	font-family: 'Arvo','Courier', serif;
-	font-weight: 500;
+	font-weight: 700;
 	padding-left: 5px;
 	text-align: left;
 	font-size: 16px;
 	cursor: pointer;
-	
 }
 
 #update{
@@ -207,4 +206,6 @@ footer{
 	text-align: right;
 	font-size: 12px;
 	font-weight: 100;
+	line-height: 19px;
+	vertical-align: middle;
 }
