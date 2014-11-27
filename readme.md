@@ -13,7 +13,7 @@ The interface of this extension was inspired by [The Weather Network](http://www
 1. Go to the Weatherloo [releases page](https://github.com/neivin/weatherloo/releases).
 2. Download the **weatherloo.crx** file.
 3. Open Google Chrome:
-  * From the Options menu, open your [extensions page](chrome://extensions/).
+  * From the Options menu, open your extensions page (chrome://extensions).
   * Drag the **weatherloo.crx** file into Chrome.
 4. Congratulations! You've successfully installed Weatherloo!
 
@@ -24,6 +24,7 @@ The interface of this extension was inspired by [The Weather Network](http://www
 - ~~Add forecast functionality.~~
 - ~~Fetch weather information from an alternative API.~~
 - Desktop notifications in times of inclement weather.
+- Improve icon for better visibility (maybe?).
 
 ### Version History:
 
