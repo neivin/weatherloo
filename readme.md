@@ -25,6 +25,7 @@ The interface of this extension was inspired by [The Weather Network](http://www
 - ~~Fetch weather information from an alternative API.~~
 - Desktop notifications in times of inclement weather.
 - Improve icon for better visibility (maybe?).
+- Find a way to compensate for API lag during early hours of the morning.
 
 ### Version History:
 
