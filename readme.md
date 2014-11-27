@@ -30,10 +30,12 @@ The interface of this extension was inspired by [The Weather Network](http://www
 - Fixed minor name change errors.
 - Added credits to Github and UW Weather Station.
 - Added a .crx file for easier Chrome installation.
+
 ![Screenshot](/img/screenshots/second.png)
 
 
 #### v0.1 UWeather - pre-release
 - Basic functionality implemented.
 - Existing bugs - time updated, humidex, and windchill API errors to be fixed.
+
 ![Screenshot](/img/screenshots/first.png)
