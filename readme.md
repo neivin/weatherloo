@@ -10,12 +10,12 @@ The icons used are called WeatherCons(TWO) and can be found on the [xda-develope
 The interface of this extension was inspired by [The Weather Network](http://www.theweathernetwork.com/weather/canada/ontario/waterloo) and the [AccuWeather](http://www.accuweather.com/) mobile app.
 
 ### Installation Instructions:
-- Go to the Weatherloo [releases page](https://github.com/neivin/weatherloo/releases).
-- Download the **weatherloo.crx** file.
-- Open Google Chrome:
---* From the Options menu, open your [extensions page](chrome://extensions/).
---* Drag the **weatherloo.crx** file into Chrome.
-- Congratulations! You've successfully installed Weatherloo!
+1. Go to the Weatherloo [releases page](https://github.com/neivin/weatherloo/releases).
+2. Download the **weatherloo.crx** file.
+3. Open Google Chrome:
+  * From the Options menu, open your [extensions page](chrome://extensions/).
+  * Drag the **weatherloo.crx** file into Chrome.
+4. Congratulations! You've successfully installed Weatherloo!
 
 ![Screenshot](/img/screenshots/third.png)
 
