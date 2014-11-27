@@ -3,12 +3,13 @@
 	"author": "Neivin Mathew",
 
 	"name": "Weatherloo",
-	"version": "0.1",
+	"version": "1.0",
 
 	"permissions": ["http://weather.uwaterloo.ca/",
+					"http://api.openweathermap.org/",
 					"tabs"],
 
-	"description": "Fetches weather from UW weather station.",
+	"description": "Fetches weather information for Waterloo, ON.",
 	"icons": {"16": "img/icon16.png",
 			  "48": "img/icon48.png",
 			  "128": "img/icon128.png"},

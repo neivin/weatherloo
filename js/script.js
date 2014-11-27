@@ -111,7 +111,7 @@ $(document).ready(function(){
 
 	});
 
-$.getJSON(currentURL, function(json) {
+	$.getJSON(currentURL, function(json) {
 		// get sunrise and sunset and convert unix epoch into string
 		var sunrise = timeConverter(json.sys.sunrise, "hrmin");
 		var sunset = timeConverter(json.sys.sunset, "hrmin");
@@ -143,7 +143,7 @@ $.getJSON(currentURL, function(json) {
 		$('#date').html(dtString);
 	});
 
-$.getJSON(forecastURL, function(json){
+	$.getJSON(forecastURL, function(json){
 		// Get forecast information here
 		var forecastArr = json.list;
 		
@@ -171,6 +171,9 @@ $.getJSON(forecastURL, function(json){
 
 	});
 
+	console.log("Hey! Thanks for downloading my extension!");
+	console.log("Since you're snooping anyway, you can find me on https://github.com/neivin.");
+	console.log("Thanks, Neivin.");
 });
 
 function timeConverter(UNIX_timestamp, type){
