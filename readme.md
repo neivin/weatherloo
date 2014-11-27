@@ -1,11 +1,20 @@
 <h2>Weatherloo</h2>
 Weatherloo is a simple Chrome extension that displays weather information for Waterloo, ON.
 
-The weather information is obtained from the [weather station](http://weather.uwaterloo.ca) at the University of Waterloo.
+The current weather information is pulled from the [weather station](http://weather.uwaterloo.ca) at the University of Waterloo.
 
-![Screenshot](/img/screenshot.PNG)
+The forecast information is pulled from the [OpenWeatherMap](http://openweathermap.org/) API.
 
-Future changes:
-- Add forecast functionality.
-- Fetch weather information from an alternative open source API.
+The icons used are called WeatherCons(TWO) and can be found on the [xda-developers forum](http://forum.xda-developers.com/showthread.php?t=1922149).
+
+The interface of this extension was inspired by [The Weather Network](http://www.theweathernetwork.com/weather/canada/ontario/waterloo) and the [AccuWeather](http://www.accuweather.com/) mobile app.
+
+![Screenshot](/img/screenshots/third.png)
+
+Future Changes:
+- ~~Improve UI/UX.~~
+- ~~Add forecast functionality.~~
+- ~~Fetch weather information from an alternative API.~~
 - Desktop notifications in times of inclement weather.
+
+Version History:
