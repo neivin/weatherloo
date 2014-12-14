@@ -106,8 +106,10 @@ $(document).ready(function(){
 			presArr = "&darr;"
 		$('#pres').html(presArr + Math.round(pressure) +" kPa");
 
-		var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
-		$('#rad').html(Math.round(radiation) + " W/m<span id=\"radunit\">2</span>");
+		/* Phasing out radiation information
+		 *	var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
+		 *	$('#rad').html(Math.round(radiation) + " W/m<span id=\"radunit\">2</span>");
+		 */
 
 	});
 
