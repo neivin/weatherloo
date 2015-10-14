@@ -2,13 +2,15 @@
 var CITY = "Waterloo";
 var MODE = "json";
 var UNITS = "metric";
-var DAY_COUNT = "7"
+var DAY_COUNT = "7";
+var KEY = "02a42eaec5b1ddb66d13d38f6085d0de";
 
 // Building URL for current weather data (Open Weather Map)
 var currentURL = "http://api.openweathermap.org/data/2.5/weather"+
 "?q=" + CITY +
 "&mode="+ MODE +
-"&units=" + UNITS;
+"&units=" + UNITS +
+"&APPID=" + KEY;
 
 
 // Building URL for forecast data (Open Weather Map)
@@ -16,7 +18,8 @@ var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily"+
 "?q=" + CITY + 
 "&mode=" + MODE +
 "&units=" + UNITS +
-"&cnt=" + DAY_COUNT;
+"&cnt=" + DAY_COUNT +
+"&APPID=" + KEY;
 
 // XML feed of The University of Waterloo Weather Station
 var weatherDataURL = "http://weather.uwaterloo.ca/waterloo_weather_station_data.xml";
