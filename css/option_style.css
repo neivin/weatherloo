@@ -3,12 +3,14 @@ body{
 	font-size: 14px;
 	line-height: 1.5em;
 	max-width: 400px;
-	margin: auto;
+	margin: 20px auto;
+	font-family: 'Open Sans', sans-serif;
 }
 
 input[type="radio"], input[type="text"], label{
 	margin: 10px;
 	max-width: 200px;
+	text-align: center;
 }
 
 div{
@@ -19,7 +21,32 @@ div{
 select{
 	max-width: 200px;
 }
+
+.cent{
+	text-align: center;
+}
+
 .btn{
+	text-align: center;
+}
+
+.subt{
+	font-size: 14px;
+	text-align: left;
+	padding-bottom: 0px;
+}
+
+.deck{
+	font-weight: lighter;
+	font-size: 12px;
+	padding-bottom: 0px;
+}
+
+#logo{
+	font-family: 'Arvo','Courier', serif;
+	font-weight: 700;
+	cursor: pointer;
+	font-size: 24px;
 	text-align: center;
 }
 

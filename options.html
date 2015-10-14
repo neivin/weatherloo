@@ -2,25 +2,33 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>Weatherloo - Options</title>
+	<title>Weatherloo - Settings</title>
 	<link type="text/css" rel="stylesheet" href="css/option_style.css"/>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Arvo:700' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
+	<div id = "logo">Weatherloo.</div>
+	<div class = "deck cent">SETTINGS</div>
+	
 	<div>
-		<label for="temp_unit">Units: </label>
+		<div class="subt" for="temp_unit">UNITS</div>
+		<div class="deck">Choose between Imperial and Metric units.</div>
 		<input type="radio" name="units" value="c" checked="checked">Celsius</input>
 		<input type="radio" name="units" value="f" >Fahrenheit</input>
 
 	</div>
 
 	<div>
-		<label for="city_option">City: </label>
+		<div class="subt" for="city_option">CITY</div>
+		<div class="deck"></div>
 		<input type="text" id="city"></input>
 	</div>
 
 	<div>
-		<label for="country_option">Country: </label>
+		<div class="subt" for="country_option">COUNTRY</div>
+		<div class="deck"></div>
 		<select id="country">
 			<option value="AF">Afghanistan</option>
 			<option value="AX">Åland Islands</option>
