@@ -1,0 +1,14 @@
+body{
+	text-align: justify;
+	font-size: 14px;
+	line-height: 1.5em;
+}
+
+input[type="radio"], input[type="text"]{
+	margin: 10px;
+}
+
+div{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}

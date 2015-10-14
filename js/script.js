@@ -26,7 +26,7 @@ var weatherDataURL = "http://weather.uwaterloo.ca/waterloo_weather_station_data.
 
 
 $(document).ready(function(){
-
+	console.log(currentURL);
 	// Open XML file
 	$.get(weatherDataURL,{}, function(xml){
 
