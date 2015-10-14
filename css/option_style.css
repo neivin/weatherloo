@@ -2,13 +2,27 @@ body{
 	text-align: justify;
 	font-size: 14px;
 	line-height: 1.5em;
+	max-width: 400px;
+	margin: auto;
 }
 
-input[type="radio"], input[type="text"]{
+input[type="radio"], input[type="text"], label{
 	margin: 10px;
+	max-width: 200px;
 }
 
 div{
 	padding-top: 5px;
 	padding-bottom: 5px;
+}
+
+select{
+	max-width: 200px;
+}
+.btn{
+	text-align: center;
+}
+
+#status{
+	min-height: 1.6em;
 }

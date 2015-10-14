@@ -1,12 +1,12 @@
 // options.js
 // // Saves options to chrome.storage.sync.
 function save_options() {
-  var color = document.getElementById('color').value;
   var unit_opt = $('input[name="units"]:checked').val();
+  var city_opt = document.getElementById('city').value;
   var country_opt = document.getElementById('country').value;
   chrome.storage.sync.set({
-    favoriteColor: color,
-    units: unit_opt,
+    temp_unit: unit_opt,
+    city: city_opt,
     country: country_opt
   }, function() {
     // Update status to let user know options were saved.
@@ -23,15 +23,15 @@ function save_options() {
 function restore_options() {
   // Use default value color = 'red' and likesColor = true.
   chrome.storage.sync.get({
-    favoriteColor: 'red',
-    units: 'c',
+    temp_unit: 'c',
+    city: 'Guelph',
     country: 'CA'
   }, function(items) {
-    document.getElementById('color').value = items.favoriteColor;
-    $('input[type="radio"][value="'+items.units+'"]').prop('checked',true);
+    $('input[type="radio"][value="'+items.temp_unit+'"]').prop('checked',true);
+    document.getElementById('city').value = items.city;
     document.getElementById('country').value = items.country;
   });
 }
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
-    save_options);
+save_options);
