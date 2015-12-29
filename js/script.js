@@ -104,7 +104,6 @@ $(document).ready(function(){
 
 		// Set temperature
 		var temp = Math.round(json.main.temp);
-		console.log(temp);
 		$('#temperature').html(temp+"<span>&deg;C</span>");
 
 		// Set max and min temperature for the day
@@ -121,14 +120,24 @@ $(document).ready(function(){
 		else
 			$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
 		
+		// Windchill
+		var fTemp = toF(temp);
+		var mphSpeed = toMPH(Math.round(windSpeed * 18 / 5));
+		var feelslike = temp;
+
+		if (mphSpeed > 3 && fTemp <= 50){
+			feelslike = getWindchill(fTemp, mphSpeed);
+			feelslike = toC(feelslike);
+		}
+
+		// Set humidex and windchill
+		$('#feelslike').html("Feels like " + "<strong>" + Math.round(feelslike) + "</strong>");
 
 		// Pressure
 		var pressure = json.main.pressure;
 		$('#pres').html(Math.round(pressure) +" hPa");
 
 
-		// Set humidex and windchill
-		$('#feelslike').html("Feels like " + "<strong>" + Math.round(5.6777) + "</strong>");
 
 		// Set the sunrise and suset times
 		$('#rise').html(sunrise);
@@ -212,9 +221,30 @@ function angleToDirection(degrees) {
 		return "NW"
 }
 
+function toF(celsiusTemp){
+	return ((celsiusTemp * 1.8) + 32);
+}
+
+function toC (fTemp){
+	return ((fTemp - 32)/1.8);
+}
+
+function toMPH (kphSpeed){
+	return kphSpeed * 0.621371;
+}
+
+function getWindchill(fTemp, mphWindSpeed) {
+	var wc = 35.74 + (0.6215 * fTemp) - (35.75 * Math.pow(mphWindSpeed, 0.16)) + (0.4275 * fTemp * Math.pow(mphWindSpeed, 0.16));
+	return wc;
+}
+
 $(function(){
 	$("#logo").click(function(){
 		var creditURL = "https://github.com/neivin/weatherloo"
 		chrome.tabs.create({url: creditURL});
 	});
 });
+
+$("#optionsgear").click(function() {
+        chrome.tabs.create({url: "options.html"});
+    });

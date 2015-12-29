@@ -208,3 +208,10 @@ footer{
 	line-height: 19px;
 	vertical-align: middle;
 }
+
+#optionsgear{
+	cursor: pointer;
+	vertical-align: middle;
+	height: 16px;
+	width: 16px;
+}
