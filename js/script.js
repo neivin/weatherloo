@@ -14,62 +14,43 @@ function getMetricOrImperial(unit) {
 	return 'imperial';
 }
 
-function load_options(){
+function buildCurrentURL(cityName, countryCode, unit){
+	var url = "http://api.openweathermap.org/data/2.5/weather"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode="+ MODE +
+	"&units=" + unit +
+	"&APPID=" + KEY;
+
+	return url;
+}
+
+function buildForecastURL(cityName, countryCode, unit){
+	var url = "http://api.openweathermap.org/data/2.5/forecast/daily"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode=" + MODE +
+	"&units=" + unit +
+	"&cnt=" + DAY_COUNT +
+	"&APPID=" + KEY;
+
+	return url;
+}
+
+$(document).ready(function(){
+
 	chrome.storage.sync.get({
     temp_unit: 'c',
     city: 'Guelph',
     country: 'CA'
   }, function(items) {
     
-    console.log("first city:"+ CITY);
-    CITY = items.city;
-    console.log("new city:"+ CITY);
-    console.log(items.country);
-    COUNTRY = items.country;
-  });
-}
+    var loadedCity = items.city;
+    var loadedCountry = items.country;
 
-function buildCurrentURL(cityName, countryCode, mode, unit){
-	var url = "http://api.openweathermap.org/data/2.5/weather"+
-	"?q=" + cityName + "," + countryCode +
-	"&mode="+ mode +
-	"&units=" + unit +
-	"&APPID=" + KEY;
+    $('#location').html(loadedCity);
+ 	
+ 	var curURL = buildCurrentURL(loadedCity, loadedCountry, UNITS);
 
-	return url;
-}
-
-function buildForecastURL(cityName, countryCode, mode, unit, days){
-	var url = "http://api.openweathermap.org/data/2.5/forecast/daily"+
-	"?q=" + cityName + "," + countryCode +
-	"&mode=" + mode +
-	"&units=" + unit +
-	"&cnt=" + days +
-	"&APPID=" + KEY;
-
-	return url;
-}
-
-// Building URL for current weather data (Open Weather Map)
-var currentURL = "http://api.openweathermap.org/data/2.5/weather"+
-"?q=" + CITY + "," + COUNTRY +
-"&mode="+ MODE +
-"&units=" + UNITS +
-"&APPID=" + KEY;
-
-
-// Building URL for forecast data (Open Weather Map)
-var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily"+
-"?q=" + CITY + 
-"&mode=" + MODE +
-"&units=" + UNITS +
-"&cnt=" + DAY_COUNT +
-"&APPID=" + KEY;
-
-
-$(document).ready(function(){
-
-	$.getJSON(currentURL, function(json) {
+	$.getJSON(curURL, function(json) {
 		// get sunrise and sunset and convert unix epoch into string
 		var sunrise = timeConverter(json.sys.sunrise, "hrmin");
 		var sunset = timeConverter(json.sys.sunset, "hrmin");
@@ -150,6 +131,8 @@ $(document).ready(function(){
 		$('#date').html(dtString);
 	});
 
+	var forecastURL = buildForecastURL(loadedCity, loadedCountry, UNITS);
+
 	$.getJSON(forecastURL, function(json){
 		// Get forecast information here
 		var forecastArr = json.list;
@@ -177,6 +160,8 @@ $(document).ready(function(){
 		}
 
 	});
+
+	 });
 
 });
 
@@ -238,12 +223,10 @@ function getWindchill(fTemp, mphWindSpeed) {
 	return wc;
 }
 
-$(function(){
-	$("#logo").click(function(){
+$("#logo").click(function(){
 		var creditURL = "https://github.com/neivin/weatherloo"
 		chrome.tabs.create({url: creditURL});
 	});
-});
 
 $("#optionsgear").click(function() {
         chrome.tabs.create({url: "options.html"});
