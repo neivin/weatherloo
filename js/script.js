@@ -1,13 +1,58 @@
+
 // Global variables for weather data
-var CITY = "Waterloo";
-var MODE = "json";
-var UNITS = "metric";
-var DAY_COUNT = "7";
-var KEY = "02a42eaec5b1ddb66d13d38f6085d0de";
+CITY = "Guelph";
+COUNTRY = "CA";
+MODE = "json";
+UNITS = "metric";
+DAY_COUNT = "7";
+KEY = "02a42eaec5b1ddb66d13d38f6085d0de";
+
+function getMetricOrImperial(unit) {
+	if (unit == 'c')
+		return 'metric';
+
+	return 'imperial';
+}
+
+function load_options(){
+	chrome.storage.sync.get({
+    temp_unit: 'c',
+    city: 'Guelph',
+    country: 'CA'
+  }, function(items) {
+    
+    console.log("first city:"+ CITY);
+    CITY = items.city;
+    console.log("new city:"+ CITY);
+    console.log(items.country);
+    COUNTRY = items.country;
+  });
+}
+
+function buildCurrentURL(cityName, countryCode, mode, unit){
+	var url = "http://api.openweathermap.org/data/2.5/weather"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode="+ mode +
+	"&units=" + unit +
+	"&APPID=" + KEY;
+
+	return url;
+}
+
+function buildForecastURL(cityName, countryCode, mode, unit, days){
+	var url = "http://api.openweathermap.org/data/2.5/forecast/daily"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode=" + mode +
+	"&units=" + unit +
+	"&cnt=" + days +
+	"&APPID=" + KEY;
+
+	return url;
+}
 
 // Building URL for current weather data (Open Weather Map)
 var currentURL = "http://api.openweathermap.org/data/2.5/weather"+
-"?q=" + CITY +
+"?q=" + CITY + "," + COUNTRY +
 "&mode="+ MODE +
 "&units=" + UNITS +
 "&APPID=" + KEY;
@@ -21,100 +66,8 @@ var forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily"+
 "&cnt=" + DAY_COUNT +
 "&APPID=" + KEY;
 
-// XML feed of The University of Waterloo Weather Station
-var weatherDataURL = "http://weather.uwaterloo.ca/waterloo_weather_station_data.xml";
-
 
 $(document).ready(function(){
-	console.log(currentURL);
-	// Open XML file
-	$.get(weatherDataURL,{}, function(xml){
-
-		$data = $('current_observation', xml);
-
-		// Collect date and time of observation
-		year = $data.find('observation_year').text();
-		month = $data.find('observation_month_number').text();
-		day = $data.find('observation_day').text();
-		
-		// This time is wrong from the XML data (always 45 mins into the hour)	
-		// time = $data.find('observation_time').text();
-
-		// Fixing observation time based on current time and the knowledge that
-		// the weather station records data every 15 mins.
-		var curTime = new Date();
-		var hrs = curTime.getHours();
-		var mins = curTime.getMinutes();
-		var ampm = " AM";
-
-		// Getting the correct hours value
-		if (parseInt(hrs) > 12) {
-			hrs = String(parseInt(hrs) - 12);
-			ampm = " PM"
-		}
-		else if (parseInt(hrs) == 0)
-			hrs = "12";
-
-		// Getting the correct minutes value
-		if (parseInt(mins) >= 5 && parseInt(mins) < 16)
-			mins = ":00";
-		if (parseInt(mins) >= 16 && parseInt(mins) < 31)
-			mins = ":15";
-		if (parseInt(mins) >= 31 && parseInt(mins) < 46)
-			mins = ":30";
-		if (parseInt(mins) >= 46 || parseInt(mins) < 5)
-			mins = ":45";
-
-		time = hrs + mins + ampm;
-
-		var dateAndTime;
-		dateAndTime = 'Updated '+ month.trim() + '/' + day.trim() + '/'+ year.trim() +', ' + time;
-		$('#update').html(dateAndTime);
-		
-
-		var temp = $data.find('temperature_current_C').text();
-		$('#temperature').html(Math.round(temp)+"<span>&deg;C</span>");
-
-		var humidex = $data.find('humidex_C').text();
-		var windchill = $data.find('windchill_C').text();
-		var feelsLike = temp;
-
-		if (humidex != "N_A ")
-			feelsLike = humidex;
-		
-		if (windchill != "N_A  ")
-			feelsLike = windchill;
-		
-		$('#feelslike').html("Feels like " + "<strong>" + Math.round(feelsLike) + "</strong>");
-
-		var tempMax = $data.find('temperature_24hrmax_C').text();
-		var tempMin = $data.find('temperature_24hrmin_C').text();
-
-		$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
-		$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
-
-		var windSpeed = $data.find('wind_speed_kph').text();
-		var windDirection = $data.find('wind_direction').text();
-
-		var wind = Math.round(windSpeed) + " kph " + windDirection;
-		$('#wind').html(wind);
-
-		var humidity = $data.find('relative_humidity_percent').text();
-		$('#hum').html(Math.round(humidity)+" %")
-
-		var pressure = $data.find('pressure_kpa').text();
-		var pressureTrend = $data.find('pressure_trend').text();
-		var presArr = "&uarr;"
-		if (pressureTrend == "   Falling")
-			presArr = "&darr;"
-		$('#pres').html(presArr + Math.round(pressure) +" kPa");
-
-		/* Phasing out radiation information
-		 *	var radiation = $data.find('incoming_shortwave_radiation_WM2').text();
-		 *	$('#rad').html(Math.round(radiation) + " W/m<span id=\"radunit\">2</span>");
-		 */
-
-	});
 
 	$.getJSON(currentURL, function(json) {
 		// get sunrise and sunset and convert unix epoch into string
@@ -138,6 +91,46 @@ $(document).ready(function(){
 		
 		var dtString = da + ", " + mo + " " + dt;
 
+
+		var windSpeed = json.wind.speed;
+		var windDirection = angleToDirection(json.wind.deg);
+
+		var wind = Math.round(windSpeed * 18 / 5) + " kph " + windDirection;
+		$('#wind').html(wind);
+
+		// Set humidity
+		var hum = json.main.humidity;
+		$('#hum').html(Math.round(hum)+" %")
+
+		// Set temperature
+		var temp = Math.round(json.main.temp);
+		console.log(temp);
+		$('#temperature').html(temp+"<span>&deg;C</span>");
+
+		// Set max and min temperature for the day
+		var tempMax = json.main.temp_max;
+		var tempMin = json.main.temp_min;
+
+		if (json.main.temp_max)
+			$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
+		else
+			$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
+
+		if (json.main.temp_min)
+			$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
+		else
+			$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
+		
+
+		// Pressure
+		var pressure = json.main.pressure;
+		$('#pres').html(Math.round(pressure) +" hPa");
+
+
+		// Set humidex and windchill
+		$('#feelslike').html("Feels like " + "<strong>" + Math.round(5.6777) + "</strong>");
+
+		// Set the sunrise and suset times
 		$('#rise').html(sunrise);
 		$('#set').html(sunset);
 
@@ -176,9 +169,6 @@ $(document).ready(function(){
 
 	});
 
-	console.log("Hey! Thanks for downloading my extension!");
-	console.log("Since you're snooping anyway, you can find me on https://github.com/neivin.");
-	console.log("Thanks, Neivin.");
 });
 
 function timeConverter(UNIX_timestamp, type){
@@ -203,6 +193,24 @@ function timeConverter(UNIX_timestamp, type){
 	return result;
 }
 
+function angleToDirection(degrees) {
+	if (degrees >= 338 && degrees<22)
+		return "N"
+	else if (degrees >= 22 && degrees<68)
+		return "NE"
+	else if (degrees >= 68 && degrees<112)
+		return "E"
+	else if (degrees >= 112 && degrees<158)
+		return "SE"
+	else if (degrees >= 158 && degrees<202)
+		return "S"
+	else if (degrees >= 202 && degrees<248)
+		return "SW"
+	else if (degrees >= 248 && degrees<292)
+		return "W"
+	else //(degrees >= 292 && degrees<338)
+		return "NW"
+}
 
 $(function(){
 	$("#logo").click(function(){
