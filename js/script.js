@@ -7,164 +7,6 @@ UNITS = "metric";
 DAY_COUNT = "7";
 KEY = "02a42eaec5b1ddb66d13d38f6085d0de";
 
-function getMetricOrImperial(unit) {
-	if (unit == 'c')
-		return 'metric';
-
-	return 'imperial';
-}
-
-function buildCurrentURL(cityName, countryCode, unit){
-	var url = "http://api.openweathermap.org/data/2.5/weather"+
-	"?q=" + cityName + "," + countryCode +
-	"&mode="+ MODE +
-	"&units=" + unit +
-	"&APPID=" + KEY;
-
-	return url;
-}
-
-function buildForecastURL(cityName, countryCode, unit){
-	var url = "http://api.openweathermap.org/data/2.5/forecast/daily"+
-	"?q=" + cityName + "," + countryCode +
-	"&mode=" + MODE +
-	"&units=" + unit +
-	"&cnt=" + DAY_COUNT +
-	"&APPID=" + KEY;
-
-	return url;
-}
-
-$(document).ready(function(){
-
-	chrome.storage.sync.get({
-    temp_unit: 'c',
-    city: 'Guelph',
-    country: 'CA'
-  }, function(items) {
-    
-    var loadedCity = items.city;
-    var loadedCountry = items.country;
-
-    $('#location').html(loadedCity);
- 	
- 	var curURL = buildCurrentURL(loadedCity, loadedCountry, UNITS);
-
-	$.getJSON(curURL, function(json) {
-		// get sunrise and sunset and convert unix epoch into string
-		var sunrise = timeConverter(json.sys.sunrise, "hrmin");
-		var sunset = timeConverter(json.sys.sunset, "hrmin");
-
-		// current weather description
-		var weatherDesc = json.weather[0].description;
-
-		// current weather icon path
-		var weatherIcon = "img/weather_icons/" + json.weather[0].icon + ".png";
-
-		// current date string builder
-		var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", 
-		"July", "Aug", "Sept", "Oct", "Nov", "Dec"];
-		var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-		var curDate = new Date();
-		var da = dayArr[curDate.getDay()];
-		var mo = monthArr[curDate.getMonth()];
-		var dt = curDate.getDate();
-		
-		var dtString = da + ", " + mo + " " + dt;
-
-
-		var windSpeed = json.wind.speed;
-		var windDirection = angleToDirection(json.wind.deg);
-
-		var wind = Math.round(windSpeed * 18 / 5) + " kph " + windDirection;
-		$('#wind').html(wind);
-
-		// Set humidity
-		var hum = json.main.humidity;
-		$('#hum').html(Math.round(hum)+" %")
-
-		// Set temperature
-		var temp = Math.round(json.main.temp);
-		$('#temperature').html(temp+"<span>&deg;C</span>");
-
-		// Set max and min temperature for the day
-		var tempMax = json.main.temp_max;
-		var tempMin = json.main.temp_min;
-
-		if (json.main.temp_max)
-			$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
-		else
-			$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
-
-		if (json.main.temp_min)
-			$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
-		else
-			$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
-		
-		// Windchill
-		var fTemp = toF(temp);
-		var mphSpeed = toMPH(Math.round(windSpeed * 18 / 5));
-		var feelslike = temp;
-
-		if (mphSpeed > 3 && fTemp <= 50){
-			feelslike = getWindchill(fTemp, mphSpeed);
-			feelslike = toC(feelslike);
-		}
-
-		// Set humidex and windchill
-		$('#feelslike').html("Feels like " + "<strong>" + Math.round(feelslike) + "</strong>");
-
-		// Pressure
-		var pressure = json.main.pressure;
-		$('#pres').html(Math.round(pressure) +" hPa");
-
-
-
-		// Set the sunrise and suset times
-		$('#rise').html(sunrise);
-		$('#set').html(sunset);
-
-		$('#cond').html(weatherDesc);
-
-		$('#weather_icon').attr('src',weatherIcon);
-
-		$('#date').html(dtString);
-	});
-
-	var forecastURL = buildForecastURL(loadedCity, loadedCountry, UNITS);
-
-	$.getJSON(forecastURL, function(json){
-		// Get forecast information here
-		var forecastArr = json.list;
-		
-		for(var i=1; i<=6;i++){
-			var unixDate = forecastArr[i].dt;
-			var day = timeConverter(unixDate, "day");
-			if (day == "SUN")
-				day = "<span id=\"sunday\">" + day + "</span>";
-
-			var dt = timeConverter(unixDate, "md");
-
-			var iconPath = "img/weather_icons/" + forecastArr[i].weather[0].icon + ".png";
-
-			var hi = Math.round(forecastArr[i].temp.max);
-			var lo = Math.round(forecastArr[i].temp.min);
-
-
-
-			$('#day'+ i).html(day);
-			$('#dt'+ i).html(dt);
-			$('#ico'+ i).attr('src', iconPath);
-			$('#hi'+ i).html(hi);
-			$('#lo'+ i).html(lo);
-		}
-
-	});
-
-	 });
-
-});
-
 function timeConverter(UNIX_timestamp, type){
 	var result;
 	var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];  
@@ -223,11 +65,176 @@ function getWindchill(fTemp, mphWindSpeed) {
 	return wc;
 }
 
-$("#logo").click(function(){
-		var creditURL = "https://github.com/neivin/weatherloo"
-		chrome.tabs.create({url: creditURL});
+function getMetricOrImperial(unit) {
+	if (unit == 'c')
+		return 'metric';
+
+	return 'imperial';
+}
+
+function buildCurrentURL(cityName, countryCode, unit){
+	var url = "http://api.openweathermap.org/data/2.5/weather"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode="+ MODE +
+	"&units=" + unit +
+	"&APPID=" + KEY;
+
+	return url;
+}
+
+function buildForecastURL(cityName, countryCode, unit){
+	var url = "http://api.openweathermap.org/data/2.5/forecast/daily"+
+	"?q=" + cityName + "," + countryCode +
+	"&mode=" + MODE +
+	"&units=" + unit +
+	"&cnt=" + DAY_COUNT +
+	"&APPID=" + KEY;
+
+	return url;
+}
+
+$(document).ready(function(){
+
+	chrome.storage.sync.get({
+		temp_unit: 'c',
+		city: 'Guelph',
+		country: 'CA'
+	}, function(items) {
+
+		var loadedCity = items.city;
+		loadedCity = loadedCity.split(' ').join('+');
+		
+		var loadedCountry = items.country;
+
+		
+
+		var curURL = buildCurrentURL(loadedCity, loadedCountry, UNITS);
+
+		$.getJSON(curURL, function(json) {
+			console.log(curURL);
+			
+			//Set name
+			$('#location').html(json.name);
+			// get sunrise and sunset and convert unix epoch into string
+			var sunrise = timeConverter(json.sys.sunrise, "hrmin");
+			var sunset = timeConverter(json.sys.sunset, "hrmin");
+
+			// current weather description
+			var weatherDesc = json.weather[0].description;
+
+			// current weather icon path
+			var weatherIcon = "img/weather_icons/" + json.weather[0].icon + ".png";
+
+			// current date string builder
+			var monthArr = ["Jan", "Feb", "Mar", "Apr", "May", "June", 
+			"July", "Aug", "Sept", "Oct", "Nov", "Dec"];
+			var dayArr = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+			var curDate = new Date();
+			var da = dayArr[curDate.getDay()];
+			var mo = monthArr[curDate.getMonth()];
+			var dt = curDate.getDate();
+			
+			var dtString = da + ", " + mo + " " + dt;
+
+
+			var windSpeed = json.wind.speed;
+			var windDirection = angleToDirection(json.wind.deg);
+
+			var wind = Math.round(windSpeed * 18 / 5) + " kph " + windDirection;
+			$('#wind').html(wind);
+
+			// Set humidity
+			var hum = json.main.humidity;
+			$('#hum').html(Math.round(hum)+" %")
+
+			// Set temperature
+			var temp = Math.round(json.main.temp);
+			$('#temperature').html(temp+"<span>&deg;C</span>");
+
+			// Set max and min temperature for the day
+			var tempMax = json.main.temp_max;
+			var tempMin = json.main.temp_min;
+
+			if (json.main.temp_max)
+				$('#hi').html("&#9650; "+ Math.round(tempMax) +" &deg;C");
+			else
+				$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
+
+			if (json.main.temp_min)
+				$('#lo').html("&#9660; "+ Math.round(tempMin) +" &deg;C");
+			else
+				$('#hi').html("&#9650; "+ Math.round(temp) +" &deg;C");
+			
+			// Windchill
+			var fTemp = toF(temp);
+			var mphSpeed = toMPH(Math.round(windSpeed * 18 / 5));
+			var feelslike = temp;
+
+			if (mphSpeed > 3 && fTemp <= 50){
+				feelslike = getWindchill(fTemp, mphSpeed);
+				feelslike = toC(feelslike);
+			}
+
+			// Set humidex and windchill
+			$('#feelslike').html("Feels like " + "<strong>" + Math.round(feelslike) + "</strong>");
+
+			// Pressure
+			var pressure = json.main.pressure;
+			$('#pres').html(Math.round(pressure) +" hPa");
+
+
+
+			// Set the sunrise and suset times
+			$('#rise').html(sunrise);
+			$('#set').html(sunset);
+
+			$('#cond').html(weatherDesc);
+
+			$('#weather_icon').attr('src',weatherIcon);
+
+			$('#date').html(dtString);
+		});
+
+	var forecastURL = buildForecastURL(loadedCity, loadedCountry, UNITS);
+
+	$.getJSON(forecastURL, function(json){
+		// Get forecast information here
+		var forecastArr = json.list;
+		
+		for(var i=1; i<=6;i++){
+			var unixDate = forecastArr[i].dt;
+			var day = timeConverter(unixDate, "day");
+			if (day == "SUN")
+				day = "<span id=\"sunday\">" + day + "</span>";
+
+			var dt = timeConverter(unixDate, "md");
+
+			var iconPath = "img/weather_icons/" + forecastArr[i].weather[0].icon + ".png";
+
+			var hi = Math.round(forecastArr[i].temp.max);
+			var lo = Math.round(forecastArr[i].temp.min);
+
+
+
+			$('#day'+ i).html(day);
+			$('#dt'+ i).html(dt);
+			$('#ico'+ i).attr('src', iconPath);
+			$('#hi'+ i).html(hi);
+			$('#lo'+ i).html(lo);
+		}
+
 	});
 
+});
+
+});
+
+
+$("#logo").click(function(){
+	var creditURL = "https://github.com/neivin/weatherloo"
+	chrome.tabs.create({url: creditURL});
+});
+
 $("#optionsgear").click(function() {
-        chrome.tabs.create({url: "options.html"});
-    });
+	chrome.tabs.create({url: "options.html"});
+});

@@ -10,7 +10,7 @@
 					"tabs",
 					"storage"],
 
-	"description": "Fetches weather information for Waterloo, ON.",
+	"description": "Fetches the current and weather forecast information for your city.",
 	"icons": {"16": "img/icon16.png",
 			  "48": "img/icon48.png",
 			  "128": "img/icon128.png"},
@@ -21,7 +21,7 @@
 		},
 	"options_ui":{
 		"page": "options.html",
-		"open_in_tab": true,
+		//"open_in_tab": true,
 		"chrome_style": true
 	}
 }
